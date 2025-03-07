@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template,session
 from datetime import datetime
 import sqlite3
+import os
 # Flaskアプリケーションのインスタンスを作成
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -150,7 +151,19 @@ def get_all_replies():
     conn.close()
     return jsonify(replies)
 
-
+# list.htmlを開くために
+@app.route('/list')
+def list_page():
+    return render_template('list.html') 
+    
+# list.htmlを開くために
+@app.route('/odai')
+def odai_page():
+    return render_template('odai.html') 
+    
+    
 # アプリケーションを実行
 if __name__ == '__main__':
+    #port = int(os.environ.get("PORT", 5000))  # Herokuからポート番号を取得
+    #app.run(host="0.0.0.0", port=port)
     app.run(debug=True)
